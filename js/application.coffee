@@ -1,22 +1,10 @@
 Backbone = require 'backbone'
-_ = require 'underscore'
+_        = require 'underscore'
 
 class Game extends Backbone.Model
   defaults:
-    board: []
     rows: 5
     cols: 5
-  initialize: ->
-    for y in [0..@get('rows')]
-      for x in [0..@get('cols')]
-        @get('board')[y] ||= []
-        @get('board')[y][x] ||= new Cell()
-
-class RowView extends Backbone.View
-  defaults:
-    size: 5
-  initialize: ->
-
 
 class Cell extends Backbone.Model
   defaults:
@@ -34,7 +22,6 @@ class CellView extends Backbone.View
   toggleFilled: ->
     @model.toggleFilled()
   render: ->
-    console.log 'woot'
     if @model.get('filled')
       @$el.addClass('filled')
     else
@@ -44,23 +31,43 @@ class CellView extends Backbone.View
 
 class GameView extends Backbone.View
   tagName: 'table'
+  initialize: ->
+    @model.bind 'change', @render, this
   render: ->
-    board = @model.get('board')
-    for row in board
+    @$el.html ''
+    for row in [0..@model.get('rows')]
       element = $(document.createElement('tr'))
-      for cell in row
+      for i in [0..@model.get('cols')]
+        cell = new Cell
         cellView = new CellView model: cell
         element.append cellView.render().el
       @$el.append element
     this
 
+class SettingsView extends Backbone.View
+  model: Game
+  defaults:
+    rows: 5
+    cols: 5
+  events:
+    'change .rows': 'updateRows'
+    'change .cols': 'updateCols'
+  updateRows: ->
+    @model.set('rows', $('#settings .rows').val())
+  updateCols: ->
+    @model.set('cols', $('#settings .cols').val())
+  render: ->
+    @$el.append('<input type="text" value="5" class="rows"/> <input type="text" value="5" class="cols"/>')
+    this
 
 $.domReady ->
   game = new Game
   console.log game
-  gameView = new GameView
-    model: game
+  gameView = new GameView model: game
+  settingsView = new SettingsView model: game
+  console.log(settingsView)
   $('h1').bind 'click', ->
     alert 1
   $('#game').append gameView.render().el
+  $('#settings').append settingsView.render().el
 
