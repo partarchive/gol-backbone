@@ -1,5 +1,3 @@
-Backbone = require 'backbone'
-
 class GOL.GameView extends Backbone.View
   tagName: 'table'
   initialize: ->

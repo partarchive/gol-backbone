@@ -1,5 +1,3 @@
-Backbone = require 'backbone'
-
 class GOL.SettingsView extends Backbone.View
   model: GOL.Game
   defaults:

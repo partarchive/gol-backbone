@@ -1,5 +1,3 @@
-Backbone = require 'backbone'
-
 class GOL.CellView extends Backbone.View
   model: GOL.Cell
   tagName: 'td'
