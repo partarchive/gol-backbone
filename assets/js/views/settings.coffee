@@ -1,5 +1,5 @@
-class GOL.SettingsView extends Backbone.View
-  model: GOL.Game
+class GOL.Views.Settings extends Backbone.View
+  model: GOL.Models.Game
   defaults:
     rows: 5
     cols: 5

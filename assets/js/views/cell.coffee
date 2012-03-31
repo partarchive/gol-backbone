@@ -1,5 +1,5 @@
-class GOL.CellView extends Backbone.View
-  model: GOL.Cell
+class GOL.Views.Cell extends Backbone.View
+  model: GOL.Models.Cell
   tagName: 'td'
   initialize: ->
     @model.bind 'change', @render, this

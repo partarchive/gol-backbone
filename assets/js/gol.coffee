@@ -4,9 +4,9 @@ window.GOL =
   Views: {}
   Routers: {}
   init: ->
-    game = new GOL.Game
-    gameView = new GOL.GameView model: game
-    settingsView = new GOL.SettingsView model: game
+    game = new GOL.Models.Game
+    gameView = new GOL.Views.Game model: game
+    settingsView = new GOL.Views.Settings model: game
     $('h1').bind 'click', ->
       alert 1
     $('#game').append gameView.render().el

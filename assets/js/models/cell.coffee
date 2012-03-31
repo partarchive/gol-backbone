@@ -1,4 +1,4 @@
-class GOL.Cell extends Backbone.Model
+class GOL.Models.Cell extends Backbone.Model
   defaults:
     filled: false
   toggleFilled: ->
